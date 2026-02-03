@@ -8,12 +8,7 @@ export default function NewItem() {
   const [category, setCategory] = useState("produce");
   const [nameTouched, setNameTouched] = useState(false);
 
-    const isValidName = /^[A-Za-z0-9\s]+$/.test(name.trim());
 
-  const nameError =
-    nameTouched && (name.trim().length < 2 || !isValidName)
-      ? "Item name must be at least 2 letters and contain only letters"
-      : "";
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -44,6 +39,7 @@ export default function NewItem() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             onBlur={() => setNameTouched(true)}
+            onFocus={() => setNameTouched(false)}
             className={`w-full rounded-md border px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 ${
                nameTouched && !name
                 ? "border-red-400"
