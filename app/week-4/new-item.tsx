@@ -42,16 +42,15 @@ export default function NewItem() {
             type="text"
             placeholder="Item name"
             value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              setNameTouched(true);
-            }}
+            onChange={(e) => setName(e.target.value)}
+            onBlur={() => setNameTouched(true)}
             className={`w-full rounded-md border px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 ${
-              nameError
+                nameTouched && (name.trim().length < 2 || !isValidName)
                 ? "border-red-400 focus:ring-red-300"
                 : "border-gray-300 focus:ring-gray-400"
             }`}
-          />
+            />
+
 
           {nameError && (
             <p className="text-xs text-red-500">{nameError}</p>
