@@ -45,15 +45,33 @@ export default function NewItem() {
             onChange={(e) => setName(e.target.value)}
             onBlur={() => setNameTouched(true)}
             className={`w-full rounded-md border px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 ${
-                nameTouched && (name.trim().length < 2 || !isValidName)
-                ? "border-red-400 focus:ring-red-300"
-                : "border-gray-300 focus:ring-gray-400"
+               nameTouched && !name
+                ? "border-red-400"
+                : "border-gray-300"
+            } ${
+            nameTouched && name && /^\d+$/.test(name)
+                ? "border-red-400"
+                : "border-gray-300"
+            } ${
+            nameTouched && name && name.length <= 2
+                ? "border-red-400"
+                : "border-gray-300"
             }`}
-            />
-
-
-          {nameError && (
-            <p className="text-xs text-red-500">{nameError}</p>
+            required
+          />
+          {nameTouched && !name &&  (
+            <p className="text-red-500 text-sm mt-1">
+              Name is required.
+            </p>
+          )
+          }
+          {nameTouched && name && /^\d+$/.test(name) && (
+            <p className="text-red-500 text-sm mt-1">Name cannot be only numbers.</p>
+          )}
+          {nameTouched && name && name.length <= 2 && (
+            <p className="text-red-500 text-sm mt-1">
+              Name must be at least 2 characters long.
+            </p>
           )}
         </div>
 
