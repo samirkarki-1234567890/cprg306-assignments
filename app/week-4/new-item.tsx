@@ -6,67 +6,94 @@ export default function NewItem() {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("produce");
+  const [nameTouched, setNameTouched] = useState(false);
+
+  const nameError =
+    nameTouched && name.trim().length < 2
+      ? "Item name must be at least 2 characters"
+      : "";
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    alert(
-      `Item: ${name}\nQuantity: ${quantity}\nCategory: ${category}`
-    );
+    if (name.trim().length < 2) {
+      setNameTouched(true);
+      return;
+    }
+
+    alert(`Added\nItem: ${name}\nQuantity: ${quantity}\nCategory: ${category}`);
 
     setName("");
     setQuantity(1);
     setCategory("produce");
+    setNameTouched(false);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-sm p-4 border rounded-lg space-y-3"
-    >
-      <input
-        type="text"
-        placeholder="Item name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-        className="w-full border p-2 rounded"
-      />
+    <div className="max-w-md">
+      <h2 className="mb-4 text-xl font-semibold text-gray-900">
+        Add New Item
+      </h2>
 
-      <input
-        type="number"
-        min="1"
-        max="99"
-        value={quantity}
-        onChange={(e) => setQuantity(Number(e.target.value))}
-        required
-        className="w-full border p-2 rounded"
-      />
-
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="w-full border p-2 rounded"
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
       >
-        <option value="produce">Produce</option>
-        <option value="dairy">Dairy</option>
-        <option value="bakery">Bakery</option>
-        <option value="meat">Meat</option>
-        <option value="frozen foods">Frozen Foods</option>
-        <option value="canned goods">Canned Goods</option>
-        <option value="dry goods">Dry Goods</option>
-        <option value="beverages">Beverages</option>
-        <option value="snacks">Snacks</option>
-        <option value="household">Household</option>
-        <option value="other">Other</option>
-      </select>
+        <div className="space-y-1">
+          <input
+            type="text"
+            placeholder="Item name"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+              setNameTouched(true);
+            }}
+            className={`w-full rounded-md border px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 ${
+              nameError
+                ? "border-red-400 focus:ring-red-300"
+                : "border-gray-300 focus:ring-gray-400"
+            }`}
+          />
 
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-      >
-        Add Item
-      </button>
-    </form>
+          {nameError && (
+            <p className="text-xs text-red-500">{nameError}</p>
+          )}
+        </div>
+
+        <input
+          type="number"
+          min="1"
+          max="99"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+          required
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+        />
+
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400"
+        >
+          <option value="produce">Produce</option>
+          <option value="dairy">Dairy</option>
+          <option value="bakery">Bakery</option>
+          <option value="meat">Meat</option>
+          <option value="canned goods">Canned Goods</option>
+          <option value="dry goods">Dry Goods</option>
+          <option value="beverages">Beverages</option>
+          <option value="snacks">Snacks</option>
+          <option value="household">Household</option>
+          <option value="other">Other</option>
+        </select>
+
+        <button
+          type="submit"
+          className="w-full rounded-md bg-gray-900 py-2.5 text-sm font-medium text-white hover:bg-gray-800 active:scale-[0.99]"
+        >
+          Add Item
+        </button>
+      </form>
+    </div>
   );
 }
