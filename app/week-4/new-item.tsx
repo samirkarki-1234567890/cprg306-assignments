@@ -8,9 +8,11 @@ export default function NewItem() {
   const [category, setCategory] = useState("produce");
   const [nameTouched, setNameTouched] = useState(false);
 
+    const isValidName = /^[A-Za-z\s]+$/.test(name.trim());
+
   const nameError =
-    nameTouched && name.trim().length < 2
-      ? "Item name must be at least 2 characters"
+    nameTouched && (name.trim().length < 2 || !isValidName)
+      ? "Item name must be at least 2 letters and contain only letters"
       : "";
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,10 +33,6 @@ export default function NewItem() {
 
   return (
     <div className="max-w-md">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900">
-        Add New Item
-      </h2>
-
       <form
         onSubmit={handleSubmit}
         className="space-y-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
