@@ -8,7 +8,7 @@ export default function NewItem() {
   const [category, setCategory] = useState("produce");
   const [nameTouched, setNameTouched] = useState(false);
 
-    const isValidName = /^[A-Za-z\s]+$/.test(name.trim());
+    const isValidName = /^[A-Za-z0-9\s]+$/.test(name.trim());
 
   const nameError =
     nameTouched && (name.trim().length < 2 || !isValidName)
