@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-8">
-      
       <h1 className="text-4xl font-bold mb-12 text-center">
         CPRG 306: Web Development 2
       </h1>
