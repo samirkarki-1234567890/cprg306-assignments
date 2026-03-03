@@ -22,20 +22,31 @@ export default function MealIdeas({ ingredient }: { ingredient: string }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function loadMealIdeas() {
-      if (!ingredient) {
-        setMeals([]);
-        return;
-      }
-
-      setLoading(true);
-      const results = await fetchMealIdeas(ingredient);
-      setMeals(results);
-      setLoading(false);
+  async function loadMealIdeas() {
+    if (!ingredient) {
+      setMeals([]);
+      return;
     }
 
-    loadMealIdeas();
-  }, [ingredient]);
+    // Remove emoji + trim + lowercase
+    const cleanedIngredient = ingredient
+      .replace(/[^a-zA-Z\s]/g, "")
+      .trim()
+      .toLowerCase();
+
+    if (!cleanedIngredient) {
+      setMeals([]);
+      return;
+    }
+
+    setLoading(true);
+    const results = await fetchMealIdeas(cleanedIngredient);
+    setMeals(results);
+    setLoading(false);
+  }
+
+  loadMealIdeas();
+}, [ingredient]);
 
   return (
     <div>
