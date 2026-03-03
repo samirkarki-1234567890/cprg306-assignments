@@ -38,6 +38,11 @@ export default function Home() {
             Week 6
           </button>
         </Link>
+        <Link href="/week-7">
+          <button className="w-full py-6 bg-slate-700 rounded-xl text-lg font-medium hover:bg-yellow-600 transition duration-300 shadow-lg">
+            Week 7
+          </button>
+        </Link>
 
       </div>
     </main>
