@@ -7,7 +7,6 @@ import itemsData from "./items.json";
 
 export default function Page() {
   const [items, setItems] = useState(itemsData);
-  const [sortBy, setSortBy] = useState("name");
 
   function handleAddItem(newItem: {
     name: string;
